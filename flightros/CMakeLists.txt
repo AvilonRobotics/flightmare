@@ -150,6 +150,28 @@ zmq
 zmqpp
 )
 
+
+#Photon
+cs_add_library(photon
+    src/photon/flight_photon.cpp
+)
+
+target_link_libraries(photon
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  stdc++fs
+)
+
+cs_add_executable(flight_photon_node
+   src/photon/flight_photon_node.cpp
+)
+
+target_link_libraries(flight_photon_node
+  photon
+  ${OpenCV_LIBRARIES}
+  stdc++fs
+)
+
 # Finish
 cs_install()
 cs_export()

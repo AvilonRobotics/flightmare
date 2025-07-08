@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drone Multi-Camera Monitor</title>
+  <style>
+    body { background: #111; color: #eee; font-family: sans-serif; text-align: center; }
+    .camera { display: inline-block; margin: 10px; text-align: center; }
+    img { width: 640px; height: 400px; border: 2px solid #444; }
+    input, button { padding: 8px; margin: 10px; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+  <h1>Drone Camera Monitor</h1>
+
+  <!-- IP Config -->
+  <div>
+    <input type="text" id="ipInput" value="172.25.11.47" />
+    <button onclick="updateIP()">Connect</button>
+  </div>
+
+  <!-- Cameras -->
+  <div class="camera">
+    <h2>Front Left</h2>
+    <img id="front_left" src="">
+  </div>
+
+  <div class="camera">
+    <h2>Front Right</h2>
+    <img id="front_right" src="">
+  </div>
+
+  <div class="camera">
+    <h2>Left</h2>
+    <img id="left" src="">
+  </div>
+
+  <div class="camera">
+    <h2>Right</h2>
+    <img id="right" src="">
+  </div>
+
+  <div class="camera">
+    <h2>Bottom Left</h2>
+    <img id="bottom_left" src="">
+  </div>
+
+  <div class="camera">
+    <h2>Bottom Right</h2>
+    <img id="bottom_right" src="">
+  </div>
+
+  <script>
+    function updateIP() {
+      const ip = document.getElementById("ipInput").value;
+      const base = `http://${ip}:8080/stream?topic=`;
+
+      document.getElementById("front_left").src     = base + "/hummingbird/front_left/image_raw";
+      document.getElementById("front_right").src    = base + "/hummingbird/front_right/image_raw";
+      document.getElementById("left").src           = base + "/hummingbird/left/image_raw";
+      document.getElementById("right").src          = base + "/hummingbird/right/image_raw";
+      document.getElementById("bottom_left").src    = base + "/hummingbird/bottom_left/image_raw";
+      document.getElementById("bottom_right").src   = base + "/hummingbird/bottom_right/image_raw";
+    }
+
+    // Call once on page load with default IP
+    window.onload = updateIP;
+  </script>
+
+</body>
+</html>
